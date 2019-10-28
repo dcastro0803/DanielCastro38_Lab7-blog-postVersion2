@@ -76,7 +76,7 @@ function submitPost(){
 			success: function(data){
 				//what to do with data
 				console.log(data);
-				
+
 			},
 			error: function(err) {
 		    	console.log('error:' + err)
@@ -90,6 +90,37 @@ function submitPost(){
 	});
 }
 
+function submitDelete() {
+	$("#submitButtonDelete").on("click",function(event){
+		event.preventDefault(); 
+
+		let id = $("#idDelete").val();
+		url = `/blog-posts/${id}`;
+		post.id = id; 
+		// Send Data 
+		$.ajax({
+				url: url,
+				method: "DELETE",
+				data: JSON.stringify(post.id),
+				datatype: "json",
+				contentType: "application/json",
+				success: function(data){
+					//what to do with data
+					console.log(data);
+
+				},
+				error: function(err) {
+			    	console.log('error:' + err)
+			  	}
+			});
+
+		//Clean Data 
+		url = "/blog-posts";
+		post.id= "";
+	});
+
+}
+
 init();
 submitPost();
-
+submitDelete();
