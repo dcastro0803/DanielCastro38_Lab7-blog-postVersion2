@@ -113,9 +113,10 @@ app.delete("/blog-posts/:id", (req, res , next) => {
 	return res.status(404).json("ID doesn't exist");
 });
 
-app.put("/blog-posts/:id", (req, res , next) => {
+app.put("/blog-posts/:id", jsonParser , (req, res , next) => {
 	console.log(req.params.id);
 	console.log(post);
+	console.log(req.body.id);
 	if(!req.body.id){
 		return res.status(406).json("ID missed in body");
 	}

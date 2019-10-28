@@ -121,6 +121,55 @@ function submitDelete() {
 
 }
 
+function submitPut(){
+	$("#submitButtonPut").on("click",function(event){
+		event.preventDefault(); 
+		// capture all the inputs 
+		let title = $("#titlePut").val();
+		let content = $("#contentPut").val();
+		let author = $("#authorPut").val();
+		let publishedDate = $("#publishedDatePut").val();
+		// Change url 
+		let id = $("#idPut").val();
+		url = `/blog-posts/${id}`;
+
+		// store data in post
+		post.title = title;
+		post.content = content; 
+		post.author = author; 
+		post.publishedDate = publishedDate;
+		post.id = id; 
+
+		// Send Data to API
+		 $.ajax({
+			url: url,
+			method: "PUT",
+			data: JSON.stringify(post),
+			datatype: "json",
+			contentType: "application/json",
+			success: function(data){
+				//what to do with data
+				console.log(data);
+
+			},
+			error: function(err) {
+		    	console.log('error:' + err)
+		  	}
+		})
+
+		// Clean Data
+		post.title = "";
+		post.content = ""; 
+		post.author = ""; 
+		post.publishedDate = "";
+		url = "/blog-posts";
+		post.id= "";
+	});
+
+}
+
+
 init();
 submitPost();
 submitDelete();
+submitPut(); 
