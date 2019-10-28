@@ -72,8 +72,8 @@ app.post("/blog-posts", jsonParser , (req,res,next) =>{
 	if(!req.body.title || !req.body.content ||
 		!req.body.author || !req.body.publishedDate){
 		return res.status(406).json({
-			code: 406,
-			message: "title, content, author or publishedDate missed"
+			code: 406 ,
+			message: "parameter missed"
 		});
 	}
 	//Create object with data 
@@ -90,7 +90,8 @@ app.post("/blog-posts", jsonParser , (req,res,next) =>{
 	//
 	return res.status(201).json({
 			code: 201,
-			content: postObject
+			content: postObject,
+			message: "Successful Data Posted "
 	});
 
 
@@ -110,7 +111,7 @@ app.delete("/blog-posts/:id", (req, res , next) => {
 		}
 		i++;
 	});
-	return res.status(404).json("ID doesn't exist");
+	return res.status(404).json({message: "ID doesn't exist"});
 });
 
 app.put("/blog-posts/:id", jsonParser , (req, res , next) => {
@@ -118,11 +119,11 @@ app.put("/blog-posts/:id", jsonParser , (req, res , next) => {
 	console.log(post);
 	console.log(req.body.id);
 	if(!req.body.id){
-		return res.status(406).json("ID missed in body");
+		return res.status(406).json({message: "ID missed in body"});
 	}
 
 	if(req.body.id != req.params.id){
-		return res.status(409).json("ID's doesn't match");
+		return res.status(409).json({message: "ID's doesn't match"});
 	}
 	post.forEach(function(postObject){
 		if(postObject.id == req.params.id){
@@ -144,9 +145,9 @@ app.put("/blog-posts/:id", jsonParser , (req, res , next) => {
 				message: "Object Updated"
 			});
 		}
-	})
+	});
+	return res.status(404).json({message: "ID not Found"});
 });
-
 
 
 app.listen("8080", () => {

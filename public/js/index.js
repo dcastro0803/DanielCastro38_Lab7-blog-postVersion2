@@ -76,10 +76,14 @@ function submitPost(){
 			success: function(data){
 				//what to do with data
 				console.log(data);
-
+				$("#errorMessagePost").show()
+		    	$("#errorMessagePost").html(`Status: ${data.code} message: ${data.message}`);
 			},
 			error: function(err) {
-		    	console.log('error:' + err)
+		    	console.log(err);
+		    	console.log(err.responseJSON.code); 
+		    	$("#errorMessagePost").show()
+		    	$("#errorMessagePost").html(`error Status: ${err.status} message: ${err.responseJSON.message}`);
 		  	}
 		})
 		// Clean Data
@@ -107,10 +111,14 @@ function submitDelete() {
 				success: function(data){
 					//what to do with data
 					console.log(data);
+					$("#errorMessageDelete").show()
+		    		$("#errorMessageDelete").html(`Status: ${data.code} message: ${data.message}`);
 
 				},
 				error: function(err) {
-			    	console.log('error:' + err)
+			    	console.log('error:' + err);
+			    	$("#errorMessageDelete").show()
+		    		$("#errorMessageDelete").html(`error Status: ${err.status} message: ${err.responseJSON.message}`);
 			  	}
 			});
 
@@ -150,10 +158,13 @@ function submitPut(){
 			success: function(data){
 				//what to do with data
 				console.log(data);
-
+				$("#errorMessagePut").show()
+		    	$("#errorMessagePut").html(`Status: ${data.code} message: ${data.message}`);
 			},
 			error: function(err) {
-		    	console.log('error:' + err)
+		    	console.log('error:' + err);
+		    	$("#errorMessagePut").show()
+		    	$("#errorMessagePut").html(`error Status: ${err.status} message: ${err.responseJSON.message}`);
 		  	}
 		})
 
